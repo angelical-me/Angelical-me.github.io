@@ -1,51 +1,11 @@
-# Angelical Scripts
-
-A self-hosted script repository for Roblox Lua scripts.
-
-## Features
-
-- 📝 Upload and host Lua scripts
-- 🔗 Direct script URLs for script executors
-- 💾 Scripts stored in browser localStorage
-- 🎨 Dark theme with syntax highlighting
-- ⚡ Fast and lightweight
-
-## Usage
-
-### Uploading Scripts
-
-1. Go to https://angelical-me.github.io
-2. Enter script name (e.g., `anti-logger.lua`)
-3. Paste your Lua code
-4. Click "Upload Script"
-
-### Getting Script URLs
-
-Each script gets a direct URL:
-
-```
-https://angelical-me.github.io/scripts/anti-logger.lua
-https://angelical-me.github.io/scripts/your-script.lua
-```
-
-### Using with Script Executors
-
-With executors like Synapse X, Roblox Studio, etc., use:
-
-```lua
-loadstring(game:HttpGet("https://angelical-me.github.io/scripts/anti-logger.lua"))()
-```
-
-## Limitations
-
-- Scripts are stored in browser localStorage
-- Only persist on the device used to upload
-- Data is lost if browser cache is cleared
-
-## Security Note
-
-⚠️ **Never share sensitive credentials in scripts!** Hosted scripts are accessible to anyone with the URL.
-
----
-
-Enjoy hosting your Roblox scripts! 🚀
+                                                                                                                          
+       db         888b      88    ,ad8888ba,   88888888888  88           88    ,ad8888ba,         db         88           
+      d88b        8888b     88   d8"'    `"8b  88           88           88   d8"'    `"8b       d88b        88           
+     d8'`8b       88 `8b    88  d8'            88           88           88  d8'                d8'`8b       88           
+    d8'  `8b      88  `8b   88  88             88aaaaa      88           88  88                d8'  `8b      88           
+   d8YaaaaY8b     88   `8b  88  88      88888  88"""""      88           88  88               d8YaaaaY8b     88           
+  d8""""""""8b    88    `8b 88  Y8,        88  88           88           88  Y8,             d8""""""""8b    88           
+ d8'        `8b   88     `8888   Y8a.    .a88  88           88           88   Y8a.    .a8P  d8'        `8b   88           
+d8'          `8b  88      `888    `"Y88888P"   88888888888  88888888888  88    `"Y8888Y"'  d8'          `8b  88888888888  
+                                                                                                                          
+                                                                                                                          
