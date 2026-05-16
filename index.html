@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Angelical ✦ Universal Roblox Script</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@200;300;400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --rose-100:#fff0f3; --rose-200:#ffd6e0; --rose-300:#ffacc3;
+      --rose-400:#ff80aa; --rose-500:#e8658a; --rose-600:#c94070;
+      --rose-700:#9b2054; --gold:#d4a8b0; --cream:#fdf8f9;
+      --text:#3d1a2e; --text-soft:#7a4060;
+      --code-bg:#160a12;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Josefin Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;cursor:none;}
+
+    /* Cursor */
+    .cursor{position:fixed;width:12px;height:12px;border-radius:50%;background:var(--rose-500);pointer-events:none;z-index:9999;transition:transform .15s ease;transform:translate(-50%,-50%);}
+    .cursor-ring{position:fixed;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--rose-400);pointer-events:none;z-index:9998;transition:transform .35s cubic-bezier(.23,1,.32,1),opacity .3s;transform:translate(-50%,-50%);}
+
+    /* Noise */
+    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9000;opacity:.5;}
+
+    /* Petals */
+    .petals-bg{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0;}
+    .petal{position:absolute;border-radius:50% 0 50% 0;background:linear-gradient(135deg,#ffacc3cc,#ff80aa66);animation:fall linear infinite;opacity:0;}
+    @keyframes fall{0%{transform:translateY(-40px) rotate(0deg) scale(.8);opacity:0}10%{opacity:.7}90%{opacity:.4}100%{transform:translateY(110vh) rotate(720deg) scale(.6);opacity:0}}
+
+    /* Mesh */
+    .mesh{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 70% 50% at 15% 20%,#ffd6e066 0%,transparent 60%),radial-gradient(ellipse 50% 60% at 85% 10%,#ffacc344 0%,transparent 55%),radial-gradient(ellipse 60% 70% at 60% 90%,#ffd6e055 0%,transparent 60%),var(--cream);}
+
+    /* Nav */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 3rem;background:linear-gradient(to bottom,#fdf8f9ee 0%,transparent 100%);backdrop-filter:blur(8px);transition:opacity .3s;}
+    .nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--rose-600);letter-spacing:.08em;}
+    .nav-links{display:flex;gap:2.5rem;list-style:none;}
+    .nav-links a{font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--text-soft);text-decoration:none;transition:color .3s;position:relative;}
+    .nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--rose-400);transform:scaleX(0);transform-origin:left;transition:transform .3s ease;}
+    .nav-links a:hover{color:var(--rose-500);}
+    .nav-links a:hover::after{transform:scaleX(1);}
+
+    /* Hero */
+    header{position:relative;z-index:10;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;}
+    .halo{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(600px,90vw);height:min(600px,90vw);border-radius:50%;background:radial-gradient(ellipse,#ffd6e055 0%,transparent 70%);animation:breathe 6s ease-in-out infinite;pointer-events:none;}
+    @keyframes breathe{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.08)}}
+    .crown{font-size:clamp(2rem,5vw,4rem);margin-bottom:1rem;animation:fadeDown 1s ease both;filter:drop-shadow(0 0 20px #ffacc388);}
+    .hero-name{font-family:'Cormorant Garamond',serif;font-size:clamp(3.5rem,10vw,8rem);font-weight:300;letter-spacing:.12em;line-height:1;background:linear-gradient(135deg,var(--rose-600) 0%,var(--rose-400) 50%,var(--gold) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:fadeDown 1s .15s ease both;}
+    .hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,2.5vw,1.4rem);font-style:italic;color:var(--rose-600);letter-spacing:.08em;margin-top:.4rem;animation:fadeDown 1s .25s ease both;}
+    .hero-tagline{font-size:clamp(.6rem,1.5vw,.75rem);letter-spacing:.45em;color:var(--text-soft);text-transform:uppercase;margin-top:1.2rem;animation:fadeDown 1s .35s ease both;}
+    .divider-ornament{display:flex;align-items:center;gap:.8rem;margin:2rem auto;animation:fadeDown 1s .45s ease both;}
+    .divider-ornament span{width:60px;height:1px;background:var(--rose-300);}
+    .divider-ornament .gem{color:var(--rose-400);font-size:.7rem;}
+    .hero-bio{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,2.5vw,1.3rem);font-style:italic;color:var(--text-soft);max-width:520px;line-height:1.9;animation:fadeDown 1s .55s ease both;}
+    .hero-cta{display:inline-flex;align-items:center;gap:.6rem;margin-top:2.5rem;padding:.9rem 2.5rem;background:linear-gradient(135deg,var(--rose-400),var(--rose-600));color:white;text-decoration:none;border-radius:999px;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;transition:transform .3s,box-shadow .3s;box-shadow:0 8px 24px -4px #e8658a44;animation:fadeDown 1s .7s ease both;}
+    .hero-cta:hover{transform:translateY(-3px);box-shadow:0 16px 32px -4px #e8658a55;}
+    .scroll-hint{position:absolute;bottom:2.5rem;display:flex;flex-direction:column;align-items:center;gap:.4rem;font-size:.6rem;letter-spacing:.3em;color:var(--rose-400);text-transform:uppercase;animation:fadeDown 1s 1s ease both;}
+    .scroll-hint .line{width:1px;height:50px;background:linear-gradient(to bottom,var(--rose-400),transparent);animation:growLine 2s 1.5s ease infinite;}
+    @keyframes growLine{0%,100%{transform:scaleY(1);opacity:1}50%{transform:scaleY(.4);opacity:.4}}
+    @keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+
+    /* Sections */
+    section{position:relative;z-index:10;padding:7rem 2rem;}
+    .section-label{font-size:.6rem;letter-spacing:.5em;text-transform:uppercase;color:var(--rose-400);text-align:center;margin-bottom:.8rem;}
+    .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:300;text-align:center;color:var(--text);letter-spacing:.06em;margin-bottom:4rem;}
+    .section-title em{font-style:italic;color:var(--rose-600);}
+
+    /* About */
+    .about-inner{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;align-items:center;}
+    .portrait-frame{width:100%;aspect-ratio:3/4;border-radius:60% 40% 55% 45%/50% 60% 40% 50%;background:linear-gradient(145deg,#ffd6e0,#ffacc3,#ff80aa);display:flex;align-items:center;justify-content:center;font-size:5rem;position:relative;overflow:hidden;animation:morphBlob 8s ease-in-out infinite;}
+    @keyframes morphBlob{0%,100%{border-radius:60% 40% 55% 45%/50% 60% 40% 50%}33%{border-radius:40% 60% 45% 55%/60% 40% 60% 40%}66%{border-radius:50% 50% 40% 60%/40% 60% 50% 50%}}
+    .about-portrait{position:relative;}
+    .portrait-deco{position:absolute;bottom:-15px;right:-15px;width:80px;height:80px;border:1.5px solid var(--rose-300);border-radius:50%;}
+    .portrait-deco-2{position:absolute;top:-20px;left:-20px;width:50px;height:50px;border:1px solid var(--rose-200);border-radius:50%;}
+    .about-text h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:400;color:var(--rose-700);margin-bottom:1.2rem;}
+    .about-text p{font-size:.83rem;line-height:2;color:var(--text-soft);margin-bottom:1rem;}
+    .stat-row{display:flex;gap:2.5rem;margin-top:2rem;}
+    .stat{text-align:center;}
+    .stat-num{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:600;color:var(--rose-600);line-height:1;}
+    .stat-label{font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--text-soft);margin-top:.3rem;}
+
+    /* Skills */
+    #skills{background:linear-gradient(to bottom,transparent,#fff0f3aa,transparent);}
+    .skills-inner{max-width:700px;margin:0 auto;display:flex;flex-direction:column;gap:2rem;}
+    .skill-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.7rem;}
+    .skill-name{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text);}
+    .skill-pct{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--rose-500);}
+    .skill-bar-bg{height:3px;background:var(--rose-200);border-radius:3px;overflow:hidden;}
+    .skill-bar-fill{height:100%;border-radius:3px;background:linear-gradient(to right,var(--rose-300),var(--rose-500));width:0;transition:width 1.4s cubic-bezier(.23,1,.32,1);}
+
+    /* Scripts */
+    .scripts-grid{max-width:960px;margin:0 auto;display:flex;flex-direction:column;gap:2.5rem;}
+    .script-card{border:1px solid var(--rose-200);border-radius:20px;overflow:hidden;background:white;box-shadow:0 4px 24px -4px #e8658a11;transition:transform .4s cubic-bezier(.23,1,.32,1),box-shadow .4s;}
+    .script-card:hover{transform:translateY(-5px);box-shadow:0 24px 48px -8px #e8658a22;}
+    .script-card-header{padding:1.5rem 2rem;background:linear-gradient(135deg,#fff0f3,#ffd6e044);border-bottom:1px solid var(--rose-200);}
+    .script-badge{display:inline-block;font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;color:var(--rose-500);background:var(--rose-100);border:1px solid var(--rose-200);padding:.2rem .7rem;border-radius:999px;margin-bottom:.5rem;}
+    .script-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--text);margin-bottom:.4rem;}
+    .script-desc{font-size:.75rem;color:var(--text-soft);line-height:1.7;margin-bottom:.6rem;}
+    .script-meta{display:flex;gap:.6rem;flex-wrap:wrap;}
+    .script-tag{font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--rose-600);background:white;border:1px solid var(--rose-200);padding:.2rem .6rem;border-radius:999px;}
+
+    /* Code block */
+    .code-topbar{display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.5rem;background:#1e0916;border-bottom:1px solid #3d1a2e55;}
+    .code-dots{display:flex;gap:6px;}
+    .code-dots span{width:10px;height:10px;border-radius:50%;}
+    .dot-r{background:#ff5f56;} .dot-y{background:#ffbd2e;} .dot-g{background:#27c93f;}
+    .code-filename{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:#c4849a;letter-spacing:.1em;}
+    .copy-btn{display:flex;align-items:center;gap:.4rem;font-family:'Josefin Sans',sans-serif;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#d4a8b0;background:transparent;border:1px solid #3d2030;border-radius:6px;padding:.3rem .8rem;cursor:none;transition:all .25s ease;}
+    .copy-btn:hover{background:var(--rose-600);color:white;border-color:var(--rose-600);}
+    .copy-btn.copied{background:#27c93f22;color:#27c93f;border-color:#27c93f55;}
+    pre{background:var(--code-bg);padding:1.8rem 2rem;overflow-x:auto;margin:0;}
+    code{font-family:'JetBrains Mono',monospace;font-size:.82rem;line-height:2;color:#f0c4d4;}
+    .tok-kw{color:#ff80aa;} .tok-fn{color:#ffb3cc;} .tok-str{color:#98d4a3;}
+    .tok-cmt{color:#5a3a4a;font-style:italic;} .tok-paren{color:#d4a8b0;}
+
+    /* Contact */
+    #contact{background:linear-gradient(to bottom,transparent,#fff0f3aa,transparent);}
+    .contact-inner{max-width:700px;margin:0 auto;text-align:center;}
+    .contact-inner p{font-family:'Cormorant Garamond',serif;font-size:clamp(1.1rem,2.5vw,1.5rem);font-style:italic;color:var(--text-soft);margin-bottom:3rem;line-height:1.8;}
+    .social-links{display:flex;justify-content:center;gap:1.2rem;flex-wrap:wrap;}
+    .social-btn{display:inline-flex;align-items:center;gap:.6rem;padding:.8rem 2rem;border:1px solid var(--rose-300);border-radius:999px;font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--text);text-decoration:none;transition:all .35s cubic-bezier(.23,1,.32,1);background:white;}
+    .social-btn:hover{background:linear-gradient(135deg,var(--rose-400),var(--rose-600));color:white;border-color:transparent;transform:translateY(-3px);box-shadow:0 16px 32px -8px #e8658a44;}
+
+    /* Footer */
+    footer{position:relative;z-index:10;text-align:center;padding:3rem 2rem;border-top:1px solid var(--rose-200);}
+    .footer-name{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--rose-300);letter-spacing:.2em;margin-bottom:.5rem;}
+    .footer-copy{font-size:.6rem;letter-spacing:.3em;color:var(--text-soft);text-transform:uppercase;}
+
+    /* Reveal */
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity .9s ease,transform .9s ease;}
+    .reveal.visible{opacity:1;transform:translateY(0);}
+
+    @media(max-width:768px){
+      nav{padding:1rem 1.5rem;} .nav-links{display:none;}
+      .about-inner{grid-template-columns:1fr;gap:2rem;}
+      pre{padding:1.2rem;} code{font-size:.72rem;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="mesh"></div>
+<div class="petals-bg" id="petalsBg"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">✦ Angelical</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#scripts">Scripts</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header>
+  <div class="halo"></div>
+  <div class="crown">🌸</div>
+  <h1 class="hero-name">Angelical</h1>
+  <p class="hero-sub">A Universal Roblox Script</p>
+  <p class="hero-tagline">Free &nbsp;·&nbsp; Lightweight &nbsp;·&nbsp; Always Updated</p>
+  <div class="divider-ornament">
+    <span></span><span class="gem">✦</span><span></span>
+  </div>
+  <p class="hero-bio">
+    A delicate yet powerful script hub for Roblox —<br>
+    
+  </p>
+  <a href="#scripts" class="hero-cta">✦ Get Scripts</a>
+  <div class="scroll-hint">
+    <div class="line"></div>
+    <span>Scroll</span>
+  </div>
+</header>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label reveal">✦ About</p>
+  <h2 class="section-title reveal">Soft soul, <em>sharp code</em></h2>
+  <div class="about-inner">
+    <div class="about-portrait reveal">
+      <div class="portrait-frame">🌹</div>
+      <div class="portrait-deco"></div>
+      <div class="portrait-deco-2"></div>
+    </div>
+    <div class="about-text reveal">
+      <h3>Hello, I'm Roselical</h3>
+      <p>
+        I'm a Roblox scripter
+      </p>
+      <p>
+        Angelical is a universal script hub designed to work seamlessly across Roblox games.
+        Inspired by simplicity and wrapped in a pink aesthetic, because good tools should also be beautiful.
+      </p>
+      <p>
+        All scripts are free, easy to work, and built with love. Use them, learn from them, grow with them.
+      </p>
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-num">3+</div>
+          <div class="stat-label">Scripts</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">Free</div>
+          <div class="stat-label">Always</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Passion</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label reveal">✦ Stack</p>
+  <h2 class="section-title reveal">What I <em>code in</em></h2>
+  <div class="skills-inner">
+    <div class="skill-item reveal">
+      <div class="skill-header"><span class="skill-name">Lua</span><span class="skill-pct">79%</span></div>
+      <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="79%"></div></div>
+    </div>
+    <div class="skill-item reveal">
+      <div class="skill-header"><span class="skill-name">CSS</span><span class="skill-pct">45%</span></div>
+      <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="5%"></div></div>
+    </div>
+    <div class="skill-item reveal">
+      <div class="skill-header"><span class="skill-name">C+</span><span class="skill-pct">45%</span></div>
+      <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="15%"></div></div>
+    </div>
+    <div class="skill-item reveal">
+      <div class="skill-header"><span class="skill-name">HTML</span><span class="skill-pct">44%</span></div>
+      <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="44%"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SCRIPTS -->
+<section id="scripts">
+  <p class="section-label reveal">✦ Scripts</p>
+  <h2 class="section-title reveal">Free <em>loadstrings</em></h2>
+  <div class="scripts-grid">
+
+    <!-- Script 1 -->
+    <div class="script-card reveal">
+      <div class="script-card-header">
+        <div class="script-badge">Universal</div>
+        <h3 class="script-title">Angelical Hub</h3>
+        <p class="script-desc">The main Angelical loader. Loads the full hub UI with all features across supported games.</p>
+        <div class="script-meta">
+          <span class="script-tag">Multi-game</span>
+          <span class="script-tag">Auto-update</span>
+          <span class="script-tag">Free</span>
+        </div>
+      </div>
+      <div class="code-topbar">
+        <div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+        <span class="code-filename">angelical-hub.lua</span>
+        <button class="copy-btn" onclick="copyCode(this)">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+      <pre><code><span class="tok-cmt">-- Angelical Hub | Universal Script</span>
+<span class="tok-cmt">-- Version 1.0.0 | Free to use</span>
+
+<span class="tok-kw">loadstring</span><span class="tok-paren">(</span><span class="tok-fn">game</span><span class="tok-paren">:</span><span class="tok-fn">HttpGet</span><span class="tok-paren">(</span>
+    <span class="tok-str">"https://raw.githubusercontent.com/angelical-me/Angelical-me.github.io/main/scripts/hub.lua"</span>
+<span class="tok-paren">))()</span></code></pre>
+    </div>
+
+    <!-- Script 2 -->
+    <div class="script-card reveal">
+      <div class="script-card-header">
+        <div class="script-badge">Utility</div>
+        <h3 class="script-title">Angelical Utils</h3>
+        <p class="script-desc">A lightweight utility script. Includes ESP, infinite jump, walkspeed, and basic quality-of-life features for most Roblox games.</p>
+        <div class="script-meta">
+          <span class="script-tag">ESP</span>
+          <span class="script-tag">Inf Jump</span>
+          <span class="script-tag">Speed</span>
+          <span class="script-tag">Lightweight</span>
+        </div>
+      </div>
+      <div class="code-topbar">
+        <div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+        <span class="code-filename">angelical-utils.lua</span>
+        <button class="copy-btn" onclick="copyCode(this)">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+      <pre><code><span class="tok-cmt">-- Angelical Utils | Lightweight Tools</span>
+<span class="tok-cmt">-- Works on most Roblox games</span>
+
+<span class="tok-kw">loadstring</span><span class="tok-paren">(</span><span class="tok-fn">game</span><span class="tok-paren">:</span><span class="tok-fn">HttpGet</span><span class="tok-paren">(</span>
+    <span class="tok-str">"https://raw.githubusercontent.com/angelical-me/Angelical-me.github.io/main/scripts/utils.lua"</span>
+<span class="tok-paren">))()</span></code></pre>
+    </div>
+
+    <!-- Script 3 -->
+    <div class="script-card reveal">
+      <div class="script-card-header">
+        <div class="script-badge">Exclusive</div>
+        <h3 class="script-title">Angelical X</h3>
+        <p class="script-desc">The exclusive version of Angelical — more features, a cleaner UI, and full support. Still completely free.</p>
+        <div class="script-meta">
+          <span class="script-tag">Full UI</span>
+          <span class="script-tag">Exclusive</span>
+          <span class="script-tag">Always Free</span>
+        </div>
+      </div>
+      <div class="code-topbar">
+        <div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+        <span class="code-filename">Coming Soon!</span>
+        <button class="copy-btn" onclick="copyCode(this)">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+      <pre><code><span class="tok-cmt">-- Angelical X | Exclusive Version</span>
+<span class="tok-cmt">Coming Soon!✦</span>
+
+<span class="tok-kw">loadstring</span><span class="tok-paren">(</span><span class="tok-fn">game</span><span class="tok-paren">:</span><span class="tok-fn">HttpGet</span><span class="tok-paren">(</span>
+    <span class="tok-str">"Coming Soon!"</span>
+<span class="tok-paren">))()</span></code></pre>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label reveal">✦ Connect</p>
+  <h2 class="section-title reveal">Find me <em>around</em></h2>
+  <div class="contact-inner reveal">
+    <p>
+      "Scripts are free, updates are coming —<br>
+      follow along for what blooms next."
+    </p>
+    <div class="social-links">
+      <a href="https://github.com/angelical-me" target="_blank" class="social-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a href="https://discord.gg/YOUR_INVITE" target="_blank" class="social-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.101 18.079.11 18.1.128 18.114a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+        Discord
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">✦ Angelical ✦</div>
+  <p class="footer-copy">© 2026 · Angelical · Free forever · Made with 🌹</p>
+</footer>
+
+<script>
+  // Petals
+  const pb = document.getElementById('petalsBg');
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.style.cssText = `left:${Math.random()*100}%;width:${6+Math.random()*8}px;height:${9+Math.random()*10}px;animation-duration:${8+Math.random()*12}s;animation-delay:${Math.random()*12}s;`;
+    pb.appendChild(p);
+  }
+
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const ring   = document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove', e => {
+    mx=e.clientX; my=e.clientY;
+    cursor.style.left=mx+'px'; cursor.style.top=my+'px';
+  });
+  (function animR(){
+    rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
+    ring.style.left=rx+'px'; ring.style.top=ry+'px';
+    requestAnimationFrame(animR);
+  })();
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ cursor.style.transform='translate(-50%,-50%) scale(2)'; ring.style.opacity='0.4'; });
+    el.addEventListener('mouseleave',()=>{ cursor.style.transform='translate(-50%,-50%) scale(1)'; ring.style.opacity='1'; });
+  });
+
+  // Scroll reveal + skill bars
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('visible');
+      e.target.querySelectorAll('.skill-bar-fill').forEach(b => b.style.width = b.dataset.width);
+      if (e.target.classList.contains('skill-item')) {
+        const b = e.target.querySelector('.skill-bar-fill');
+        if (b) b.style.width = b.dataset.width;
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Nav hide on scroll down
+  let lastY = 0;
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    nav.style.opacity = (y > lastY && y > 80) ? '0' : '1';
+    nav.style.pointerEvents = (y > lastY && y > 80) ? 'none' : 'auto';
+    lastY = y;
+  });
+
+  // Copy button
+  function copyCode(btn) {
+    const pre = btn.closest('.script-card').querySelector('pre');
+    // Get plain text without HTML tags
+    const text = pre.innerText || pre.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.classList.add('copied');
+      btn.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Copied!`;
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy`;
+      }, 3000);
+    }).catch(() => {
+      // Fallback for older browsers
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      btn.classList.add('copied');
+      btn.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Copied!`;
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy`;
+      }, 3000);
+    });
+  }
+</script>
+</body>
+</html>
