@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Angelical Pastebin</title>
+    <title>Angelical Scripts</title>
     <style>
         * {
             margin: 0;
@@ -18,7 +18,7 @@
             padding: 20px;
         }
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
         header {
@@ -36,28 +36,40 @@
             color: #858585;
             font-size: 0.9em;
         }
-        .upload-section {
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        @media (max-width: 1000px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+        .section {
             background: #252526;
             border: 1px solid #404040;
             border-radius: 5px;
             padding: 20px;
-            margin-bottom: 30px;
         }
-        .upload-section h2 {
+        .section h2 {
             color: #4ec9b0;
             margin-bottom: 15px;
-            font-size: 1.2em;
+            font-size: 1.1em;
+            border-bottom: 1px solid #404040;
+            padding-bottom: 10px;
         }
         textarea {
             width: 100%;
-            height: 300px;
+            height: 400px;
             background: #1e1e1e;
             color: #d4d4d4;
             border: 1px solid #404040;
             border-radius: 4px;
             padding: 15px;
             font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-            font-size: 0.95em;
+            font-size: 0.9em;
             resize: vertical;
             margin-bottom: 15px;
         }
@@ -90,127 +102,202 @@
             font-weight: bold;
             font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
             transition: background 0.3s;
+            width: 100%;
         }
         button:hover {
             background: #6dd4c4;
         }
-        .pastes-section {
-            margin-top: 30px;
+        button.delete {
+            background: #d94949;
+            width: auto;
+            padding: 5px 10px;
+            font-size: 0.8em;
+            margin-top: 10px;
         }
-        .pastes-section h2 {
-            color: #4ec9b0;
-            margin-bottom: 15px;
-            font-size: 1.2em;
+        button.delete:hover {
+            background: #ff6b6b;
         }
-        .paste-item {
-            background: #252526;
+        .script-item {
+            background: #1e1e1e;
             border: 1px solid #404040;
             border-radius: 5px;
-            padding: 15px;
+            padding: 12px;
             margin-bottom: 10px;
-            cursor: pointer;
-            transition: background 0.3s, border-color 0.3s;
         }
-        .paste-item:hover {
-            background: #2d2d30;
-            border-color: #4ec9b0;
-        }
-        .paste-title {
+        .script-name {
             color: #4ec9b0;
             font-weight: bold;
-            margin-bottom: 5px;
+            font-size: 0.95em;
+            word-break: break-all;
         }
-        .paste-preview {
+        .script-url {
             color: #858585;
-            font-size: 0.85em;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        .paste-meta {
-            color: #646695;
             font-size: 0.8em;
-            margin-top: 8px;
+            margin-top: 5px;
+            word-break: break-all;
+        }
+        .script-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        .script-actions button {
+            flex: 1;
+            min-width: 100px;
+            padding: 6px 12px;
+            font-size: 0.85em;
+        }
+        .copy-btn {
+            background: #007acc;
+        }
+        .copy-btn:hover {
+            background: #0098ff;
         }
         .empty-message {
             color: #858585;
             text-align: center;
-            padding: 40px 20px;
+            padding: 20px;
+        }
+        .success-msg {
+            background: #155724;
+            color: #d4edda;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            display: none;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Angelical Pastebin</h1>
-            <p class="tagline">Share and store code snippets, text, and more</p>
+            <h1>Angelical Scripts</h1>
+            <p class="tagline">Host and share Lua scripts for Roblox</p>
         </header>
 
-        <div class="upload-section">
-            <h2>Create New Paste</h2>
-            <input type="text" id="pasteTitle" placeholder="Enter paste title (optional)">
-            <textarea id="pasteContent" placeholder="Paste your content here..."></textarea>
-            <button onclick="createPaste()">Create Paste</button>
-        </div>
+        <div class="content">
+            <div class="section">
+                <h2>Upload New Script</h2>
+                <div class="success-msg" id="successMsg">Script uploaded successfully!</div>
+                <input type="text" id="scriptName" placeholder="Script name (e.g., anti-logger.lua)">
+                <textarea id="scriptContent" placeholder="Paste your Lua script here..."></textarea>
+                <button onclick="uploadScript()">Upload Script</button>
+            </div>
 
-        <div class="pastes-section">
-            <h2>Recent Pastes</h2>
-            <div id="pastesList"></div>
+            <div class="section">
+                <h2>Your Scripts</h2>
+                <div id="scriptsList"></div>
+            </div>
         </div>
     </div>
 
     <script>
-        // Load pastes from localStorage
-        function loadPastes() {
-            const pastesList = document.getElementById('pastesList');
-            const pastes = JSON.parse(localStorage.getItem('pastes') || '[]');
+        // Load scripts from localStorage
+        function loadScripts() {
+            const scriptsList = document.getElementById('scriptsList');
+            const scripts = JSON.parse(localStorage.getItem('scripts') || '{}');
+            const scriptNames = Object.keys(scripts);
             
-            if (pastes.length === 0) {
-                pastesList.innerHTML = '<div class="empty-message">No pastes yet. Create one above!</div>';
+            if (scriptNames.length === 0) {
+                scriptsList.innerHTML = '<div class="empty-message">No scripts yet. Upload one above!</div>';
                 return;
             }
             
-            pastesList.innerHTML = pastes.map((paste, index) => `
-                <div class="paste-item" onclick="viewPaste(${index})">
-                    <div class="paste-title">${paste.title || 'Untitled Paste'}</div>
-                    <div class="paste-preview">${paste.content.substring(0, 100)}</div>
-                    <div class="paste-meta">Created: ${new Date(paste.timestamp).toLocaleString()}</div>
-                </div>
-            `).join('');
+            scriptsList.innerHTML = scriptNames.map((name) => {
+                const baseUrl = window.location.origin + window.location.pathname.replace('index.html', '');
+                const scriptUrl = baseUrl + 'scripts/' + name;
+                return `
+                    <div class="script-item">
+                        <div class="script-name">📄 ${name}</div>
+                        <div class="script-url">📍 ${scriptUrl}</div>
+                        <div class="script-actions">
+                            <button class="copy-btn" onclick="copyToClipboard('${scriptUrl}')">Copy URL</button>
+                            <button class="delete" onclick="deleteScript('${name}')">Delete</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
         }
 
-        function createPaste() {
-            const title = document.getElementById('pasteTitle').value;
-            const content = document.getElementById('pasteContent').value;
+        function uploadScript() {
+            const name = document.getElementById('scriptName').value.trim();
+            const content = document.getElementById('scriptContent').value;
+            
+            if (!name) {
+                alert('Please enter a script name!');
+                return;
+            }
             
             if (!content.trim()) {
-                alert('Please enter some content!');
+                alert('Please enter script content!');
                 return;
             }
             
-            const pastes = JSON.parse(localStorage.getItem('pastes') || '[]');
-            pastes.unshift({
-                title: title || 'Untitled Paste',
-                content: content,
-                timestamp: new Date().toISOString()
+            // Ensure name ends with .lua
+            const finalName = name.endsWith('.lua') ? name : name + '.lua';
+            
+            const scripts = JSON.parse(localStorage.getItem('scripts') || '{}');
+            scripts[finalName] = content;
+            localStorage.setItem('scripts', JSON.stringify(scripts));
+            
+            // Show success message
+            const msg = document.getElementById('successMsg');
+            msg.style.display = 'block';
+            setTimeout(() => msg.style.display = 'none', 3000);
+            
+            document.getElementById('scriptName').value = '';
+            document.getElementById('scriptContent').value = '';
+            
+            loadScripts();
+        }
+
+        function deleteScript(name) {
+            if (confirm(`Delete ${name}?`)) {
+                const scripts = JSON.parse(localStorage.getItem('scripts') || '{}');
+                delete scripts[name];
+                localStorage.setItem('scripts', JSON.stringify(scripts));
+                loadScripts();
+            }
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('URL copied to clipboard!');
             });
-            
-            localStorage.setItem('pastes', JSON.stringify(pastes));
-            
-            document.getElementById('pasteTitle').value = '';
-            document.getElementById('pasteContent').value = '';
-            
-            loadPastes();
         }
 
-        function viewPaste(index) {
-            const pastes = JSON.parse(localStorage.getItem('pastes') || '[]');
-            const paste = pastes[index];
-            alert(`${paste.title}\n\n${paste.content}`);
+        // Check if URL is requesting a script
+        function handleScriptRequest() {
+            const path = window.location.pathname;
+            const match = path.match(/\/scripts\/([^/]+)$/);
+            
+            if (match) {
+                const scriptName = decodeURIComponent(match[1]);
+                const scripts = JSON.parse(localStorage.getItem('scripts') || '{}');
+                
+                if (scripts[scriptName]) {
+                    // Return plain text
+                    document.body.innerHTML = '';
+                    document.body.style.margin = '0';
+                    document.body.style.padding = '0';
+                    document.body.innerHTML = '<pre>' + scripts[scriptName] + '</pre>';
+                    document.body.style.background = '#1e1e1e';
+                    document.body.style.color = '#d4d4d4';
+                    document.body.style.fontFamily = 'Consolas, Monaco, monospace';
+                    document.body.style.whiteSpace = 'pre-wrap';
+                    document.body.style.wordWrap = 'break-word';
+                    document.body.style.padding = '20px';
+                } else {
+                    document.body.innerHTML = '<h1>Script not found: ' + scriptName + '</h1>';
+                }
+            } else {
+                // Load the main page
+                loadScripts();
+            }
         }
 
-        // Load pastes on page load
-        loadPastes();
+        handleScriptRequest();
     </script>
 </body>
 </html>

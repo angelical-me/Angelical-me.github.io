@@ -1,35 +1,51 @@
-# Angelical Pastebin
+# Angelical Scripts
 
-A simple, elegant pastebin website built with GitHub Pages.
+A self-hosted script repository for Roblox Lua scripts.
 
 ## Features
 
-- 📝 Create and share text pastes
-- 💾 Local storage (persists in your browser)
-- 🎨 Dark theme with VS Code-inspired styling
+- 📝 Upload and host Lua scripts
+- 🔗 Direct script URLs for script executors
+- 💾 Scripts stored in browser localStorage
+- 🎨 Dark theme with syntax highlighting
 - ⚡ Fast and lightweight
-- 📱 Responsive design
 
 ## Usage
 
+### Uploading Scripts
+
 1. Go to https://angelical-me.github.io
-2. Enter a title (optional) and paste your content
-3. Click "Create Paste"
-4. Your pastes will be stored locally in your browser
+2. Enter script name (e.g., `anti-logger.lua`)
+3. Paste your Lua code
+4. Click "Upload Script"
 
-## Customization
+### Getting Script URLs
 
-- Edit `index.html` to modify colors, styling, or functionality
-- Change the color scheme by modifying the `--color-primary` in the CSS
+Each script gets a direct URL:
+
+```
+https://angelical-me.github.io/scripts/anti-logger.lua
+https://angelical-me.github.io/scripts/your-script.lua
+```
+
+### Using with Script Executors
+
+With executors like Synapse X, Roblox Studio, etc., use:
+
+```lua
+loadstring(game:HttpGet("https://angelical-me.github.io/scripts/anti-logger.lua"))()
+```
 
 ## Limitations
 
-- Pastes are stored locally in your browser (using localStorage)
-- They are not shared across devices or browsers
-- Clearing browser data will delete pastes
+- Scripts are stored in browser localStorage
+- Only persist on the device used to upload
+- Data is lost if browser cache is cleared
 
-To add server-side storage, you would need to add a backend service.
+## Security Note
+
+⚠️ **Never share sensitive credentials in scripts!** Hosted scripts are accessible to anyone with the URL.
 
 ---
 
-Enjoy sharing your code! 🚀
+Enjoy hosting your Roblox scripts! 🚀
