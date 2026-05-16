@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        fetch('https://api.github.com/repos/angelical-me/Angelical-me.github.io/contents/scripts')
+            .then(r => r.json())
+            .then(files => {
+                const luaFiles = files.filter(f => f.name.endsWith('.lua'));
+                if (luaFiles.length > 0) {
+                    const random = luaFiles[Math.floor(Math.random() * luaFiles.length)];
+                    window.location.href = `https://raw.githubusercontent.com/angelical-me/Angelical-me.github.io/main/scripts/${random.name}`;
+                }
+            });
+    </script>
+</head>
+<body>
+    Redirecting to random script...
+</body>
+</html>
