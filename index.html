@@ -12,114 +12,211 @@
         }
         body {
             font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-            background: #1e1e1e;
+            background: linear-gradient(135deg, #1a0033 0%, #330066 50%, #1a0033 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
             color: #d4d4d4;
             min-height: 100vh;
             padding: 20px;
         }
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
         }
         header {
             text-align: center;
-            margin-bottom: 30px;
-            padding: 20px 0;
-            border-bottom: 2px solid #404040;
+            margin-bottom: 50px;
+            padding: 40px 0;
+            animation: fadeInDown 0.8s ease;
+        }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         h1 {
-            color: #4ec9b0;
-            font-size: 2.5em;
+            color: #ff1493;
+            font-size: 3em;
             margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 20, 147, 0.5);
+            letter-spacing: 2px;
+            font-weight: bold;
         }
-        .tagline {
-            color: #858585;
-            font-size: 0.9em;
+        .scripts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            animation: fadeInUp 0.8s ease 0.2s both;
         }
-        .section {
-            background: #252526;
-            border: 1px solid #404040;
-            border-radius: 5px;
-            padding: 20px;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        .section h2 {
-            color: #4ec9b0;
-            margin-bottom: 15px;
-            font-size: 1.1em;
-            border-bottom: 1px solid #404040;
-            padding-bottom: 10px;
+        .script-card {
+            background: rgba(40, 20, 60, 0.8);
+            border: 2px solid #ff1493;
+            border-radius: 12px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            animation: slideIn 0.5s ease;
         }
-        .script-item {
-            background: #1e1e1e;
-            border: 1px solid #404040;
-            border-radius: 5px;
-            padding: 12px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .script-card:hover {
+            transform: translateY(-8px);
+            border-color: #ff69b4;
+            box-shadow: 0 0 30px rgba(255, 20, 147, 0.4);
+            background: rgba(50, 30, 80, 0.9);
         }
         .script-name {
-            color: #4ec9b0;
+            color: #ff1493;
             font-weight: bold;
-            font-size: 0.95em;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            word-break: break-word;
         }
         .script-url {
-            color: #858585;
-            font-size: 0.8em;
+            color: #b8b8b8;
+            font-size: 0.85em;
+            margin-bottom: 15px;
             word-break: break-all;
-            margin: 5px 0;
-            flex-basis: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 3px solid #ff1493;
+        }
+        .loadstring-code {
+            background: #0a0a0a;
+            color: #00ff00;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 0.8em;
+            margin-bottom: 15px;
+            word-break: break-all;
+            border: 1px solid #333;
+            font-family: 'Courier New', monospace;
+            max-height: 80px;
+            overflow-y: auto;
         }
         .script-actions {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             flex-wrap: wrap;
         }
         button {
-            background: #4ec9b0;
-            color: #1e1e1e;
+            flex: 1;
+            min-width: 120px;
+            background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+            color: #fff;
             border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
+            padding: 12px 20px;
+            border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
             font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-            transition: background 0.3s;
-            font-size: 0.85em;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         button:hover {
-            background: #6dd4c4;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 20, 147, 0.6);
         }
-        button.raw {
-            background: #007acc;
+        button:active {
+            transform: scale(0.95);
         }
-        button.raw:hover {
-            background: #0098ff;
+        button.loadstring-btn {
+            background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%);
+            color: #000;
+        }
+        button.loadstring-btn:hover {
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.6);
         }
         .empty-message {
-            color: #858585;
+            color: #ff1493;
             text-align: center;
-            padding: 20px;
+            padding: 40px;
+            font-size: 1.2em;
         }
         .loading {
-            color: #858585;
+            color: #ff1493;
             text-align: center;
-            padding: 20px;
+            padding: 40px;
+            font-size: 1.1em;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+        .copy-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ff1493;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            animation: slideInRight 0.5s ease;
+            z-index: 1000;
+            font-weight: bold;
+        }
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Angelical Scripts</h1>
-            <p class="tagline">Host and share Lua scripts for Roblox</p>
+            <h1>💝 Please Copy Our Scripts Below!</h1>
         </header>
 
-        <div class="section">
-            <h2>Available Scripts</h2>
-            <div id="scriptsList" class="loading">Loading scripts...</div>
+        <div class="scripts-grid" id="scriptsList">
+            <div class="loading">Loading scripts...</div>
         </div>
     </div>
 
@@ -137,7 +234,7 @@
                 
                 if (!response.ok) {
                     if (response.status === 404) {
-                        scriptsList.innerHTML = '<div class="empty-message">No scripts yet. Create a /scripts/ folder and add .lua files to this repository!</div>';
+                        scriptsList.innerHTML = '<div class="empty-message">No scripts available yet!</div>';
                     } else {
                         scriptsList.innerHTML = '<div class="empty-message">Error loading scripts</div>';
                     }
@@ -148,23 +245,26 @@
                 const luaFiles = Array.isArray(files) ? files.filter(f => f.name.endsWith('.lua') && f.type === 'file') : [];
                 
                 if (luaFiles.length === 0) {
-                    scriptsList.innerHTML = '<div class="empty-message">No scripts yet. Add .lua files to the /scripts/ folder!</div>';
+                    scriptsList.innerHTML = '<div class="empty-message">No scripts available yet!</div>';
                     return;
                 }
                 
-                scriptsList.innerHTML = luaFiles.map((file) => {
+                scriptsList.innerHTML = luaFiles.map((file, index) => {
+                    const scriptName = file.name;
                     const baseUrl = 'https://angelical-me.github.io';
-                    const scriptUrl = `${baseUrl}/${SCRIPTS_PATH}/${file.name}`;
+                    const scriptUrl = `${baseUrl}/${SCRIPTS_PATH}/${scriptName}`;
+                    const loadstringCode = `loadstring(game:HttpGet("${scriptUrl}"))()`;
                     const rawUrl = file.download_url;
+                    
                     return `
-                        <div class="script-item">
-                            <div>
-                                <div class="script-name">📄 ${file.name}</div>
-                                <div class="script-url">${scriptUrl}</div>
-                            </div>
+                        <div class="script-card" style="animation-delay: ${index * 0.1}s">
+                            <div class="script-name">📄 ${scriptName}</div>
+                            <div class="script-url">${scriptUrl}</div>
+                            <div class="loadstring-code">${escapeHtml(loadstringCode)}</div>
                             <div class="script-actions">
-                                <button class="raw" onclick="copyToClipboard('${scriptUrl}')">Copy URL</button>
-                                <button class="raw" onclick="window.open('${rawUrl}', '_blank')">View Raw</button>
+                                <button class="loadstring-btn" onclick="copyLoadstring('${escapeJs(loadstringCode)}')">📋 Copy Loadstring</button>
+                                <button onclick="copyUrl('${escapeJs(scriptUrl)}')">🔗 Copy URL</button>
+                                <button onclick="window.open('${rawUrl}', '_blank')">👁️ View Raw</button>
                             </div>
                         </div>
                     `;
@@ -175,13 +275,64 @@
             }
         }
 
-        function copyToClipboard(text) {
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        function escapeJs(text) {
+            return text.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\n/g, '\\n').replace(/\r/g, '\\r');
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'copy-notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.5s ease';
+                setTimeout(() => notification.remove(), 500);
+            }, 2000);
+        }
+
+        function copyLoadstring(text) {
             navigator.clipboard.writeText(text).then(() => {
-                alert('URL copied to clipboard!');
+                showNotification('✓ Loadstring copied!');
             }).catch(() => {
-                alert('Failed to copy URL');
+                showNotification('Failed to copy');
             });
         }
+
+        function copyUrl(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification('✓ URL copied!');
+            }).catch(() => {
+                showNotification('Failed to copy');
+            });
+        }
+
+        // Add slideOutRight animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideOutRight {
+                from {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateX(100px);
+                }
+            }
+        `;
+        document.head.appendChild(style);
 
         // Load scripts on page load
         loadScripts();
