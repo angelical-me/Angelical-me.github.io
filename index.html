@@ -18,23 +18,13 @@
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     html{scroll-behavior:smooth;}
     body{font-family:'Josefin Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;cursor:none;}
-
-    /* Cursor */
     .cursor{position:fixed;width:12px;height:12px;border-radius:50%;background:var(--rose-500);pointer-events:none;z-index:9999;transition:transform .15s ease;transform:translate(-50%,-50%);}
     .cursor-ring{position:fixed;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--rose-400);pointer-events:none;z-index:9998;transition:transform .35s cubic-bezier(.23,1,.32,1),opacity .3s;transform:translate(-50%,-50%);}
-
-    /* Noise */
     body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9000;opacity:.5;}
-
-    /* Petals */
     .petals-bg{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0;}
     .petal{position:absolute;border-radius:50% 0 50% 0;background:linear-gradient(135deg,#ffacc3cc,#ff80aa66);animation:fall linear infinite;opacity:0;}
     @keyframes fall{0%{transform:translateY(-40px) rotate(0deg) scale(.8);opacity:0}10%{opacity:.7}90%{opacity:.4}100%{transform:translateY(110vh) rotate(720deg) scale(.6);opacity:0}}
-
-    /* Mesh */
     .mesh{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 70% 50% at 15% 20%,#ffd6e066 0%,transparent 60%),radial-gradient(ellipse 50% 60% at 85% 10%,#ffacc344 0%,transparent 55%),radial-gradient(ellipse 60% 70% at 60% 90%,#ffd6e055 0%,transparent 60%),var(--cream);}
-
-    /* Nav */
     nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 3rem;background:linear-gradient(to bottom,#fdf8f9ee 0%,transparent 100%);backdrop-filter:blur(8px);transition:opacity .3s;}
     .nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--rose-600);letter-spacing:.08em;}
     .nav-links{display:flex;gap:2.5rem;list-style:none;}
@@ -42,8 +32,6 @@
     .nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--rose-400);transform:scaleX(0);transform-origin:left;transition:transform .3s ease;}
     .nav-links a:hover{color:var(--rose-500);}
     .nav-links a:hover::after{transform:scaleX(1);}
-
-    /* Hero */
     header{position:relative;z-index:10;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;}
     .halo{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(600px,90vw);height:min(600px,90vw);border-radius:50%;background:radial-gradient(ellipse,#ffd6e055 0%,transparent 70%);animation:breathe 6s ease-in-out infinite;pointer-events:none;}
     @keyframes breathe{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.08)}}
@@ -61,14 +49,10 @@
     .scroll-hint .line{width:1px;height:50px;background:linear-gradient(to bottom,var(--rose-400),transparent);animation:growLine 2s 1.5s ease infinite;}
     @keyframes growLine{0%,100%{transform:scaleY(1);opacity:1}50%{transform:scaleY(.4);opacity:.4}}
     @keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
-
-    /* Sections */
     section{position:relative;z-index:10;padding:7rem 2rem;}
     .section-label{font-size:.6rem;letter-spacing:.5em;text-transform:uppercase;color:var(--rose-400);text-align:center;margin-bottom:.8rem;}
     .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:300;text-align:center;color:var(--text);letter-spacing:.06em;margin-bottom:4rem;}
     .section-title em{font-style:italic;color:var(--rose-600);}
-
-    /* About */
     .about-inner{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;align-items:center;}
     .portrait-frame{width:100%;aspect-ratio:3/4;border-radius:60% 40% 55% 45%/50% 60% 40% 50%;background:linear-gradient(145deg,#ffd6e0,#ffacc3,#ff80aa);display:flex;align-items:center;justify-content:center;font-size:5rem;position:relative;overflow:hidden;animation:morphBlob 8s ease-in-out infinite;}
     @keyframes morphBlob{0%,100%{border-radius:60% 40% 55% 45%/50% 60% 40% 50%}33%{border-radius:40% 60% 45% 55%/60% 40% 60% 40%}66%{border-radius:50% 50% 40% 60%/40% 60% 50% 50%}}
@@ -81,8 +65,6 @@
     .stat{text-align:center;}
     .stat-num{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:600;color:var(--rose-600);line-height:1;}
     .stat-label{font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--text-soft);margin-top:.3rem;}
-
-    /* Skills */
     #skills{background:linear-gradient(to bottom,transparent,#fff0f3aa,transparent);}
     .skills-inner{max-width:700px;margin:0 auto;display:flex;flex-direction:column;gap:2rem;}
     .skill-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.7rem;}
@@ -90,8 +72,6 @@
     .skill-pct{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--rose-500);}
     .skill-bar-bg{height:3px;background:var(--rose-200);border-radius:3px;overflow:hidden;}
     .skill-bar-fill{height:100%;border-radius:3px;background:linear-gradient(to right,var(--rose-300),var(--rose-500));width:0;transition:width 1.4s cubic-bezier(.23,1,.32,1);}
-
-    /* Scripts */
     .scripts-grid{max-width:960px;margin:0 auto;display:flex;flex-direction:column;gap:2.5rem;}
     .script-card{border:1px solid var(--rose-200);border-radius:20px;overflow:hidden;background:white;box-shadow:0 4px 24px -4px #e8658a11;transition:transform .4s cubic-bezier(.23,1,.32,1),box-shadow .4s;}
     .script-card:hover{transform:translateY(-5px);box-shadow:0 24px 48px -8px #e8658a22;}
@@ -101,8 +81,6 @@
     .script-desc{font-size:.75rem;color:var(--text-soft);line-height:1.7;margin-bottom:.6rem;}
     .script-meta{display:flex;gap:.6rem;flex-wrap:wrap;}
     .script-tag{font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--rose-600);background:white;border:1px solid var(--rose-200);padding:.2rem .6rem;border-radius:999px;}
-
-    /* Code block */
     .code-topbar{display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.5rem;background:#1e0916;border-bottom:1px solid #3d1a2e55;}
     .code-dots{display:flex;gap:6px;}
     .code-dots span{width:10px;height:10px;border-radius:50%;}
@@ -115,24 +93,17 @@
     code{font-family:'JetBrains Mono',monospace;font-size:.82rem;line-height:2;color:#f0c4d4;}
     .tok-kw{color:#ff80aa;} .tok-fn{color:#ffb3cc;} .tok-str{color:#98d4a3;}
     .tok-cmt{color:#5a3a4a;font-style:italic;} .tok-paren{color:#d4a8b0;}
-
-    /* Contact */
     #contact{background:linear-gradient(to bottom,transparent,#fff0f3aa,transparent);}
     .contact-inner{max-width:700px;margin:0 auto;text-align:center;}
     .contact-inner p{font-family:'Cormorant Garamond',serif;font-size:clamp(1.1rem,2.5vw,1.5rem);font-style:italic;color:var(--text-soft);margin-bottom:3rem;line-height:1.8;}
     .social-links{display:flex;justify-content:center;gap:1.2rem;flex-wrap:wrap;}
     .social-btn{display:inline-flex;align-items:center;gap:.6rem;padding:.8rem 2rem;border:1px solid var(--rose-300);border-radius:999px;font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--text);text-decoration:none;transition:all .35s cubic-bezier(.23,1,.32,1);background:white;}
     .social-btn:hover{background:linear-gradient(135deg,var(--rose-400),var(--rose-600));color:white;border-color:transparent;transform:translateY(-3px);box-shadow:0 16px 32px -8px #e8658a44;}
-
-    /* Footer */
     footer{position:relative;z-index:10;text-align:center;padding:3rem 2rem;border-top:1px solid var(--rose-200);}
     .footer-name{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--rose-300);letter-spacing:.2em;margin-bottom:.5rem;}
     .footer-copy{font-size:.6rem;letter-spacing:.3em;color:var(--text-soft);text-transform:uppercase;}
-
-    /* Reveal */
     .reveal{opacity:0;transform:translateY(30px);transition:opacity .9s ease,transform .9s ease;}
     .reveal.visible{opacity:1;transform:translateY(0);}
-
     @media(max-width:768px){
       nav{padding:1rem 1.5rem;} .nav-links{display:none;}
       .about-inner{grid-template-columns:1fr;gap:2rem;}
@@ -169,8 +140,7 @@
     <span></span><span class="gem">✦</span><span></span>
   </div>
   <p class="hero-bio">
-    A delicate yet powerful script hub for Roblox —<br>
-    
+    A delicate yet powerful script hub for Roblox<br>
   </p>
   <a href="#scripts" class="hero-cta">✦ Get Scripts</a>
   <div class="scroll-hint">
@@ -196,10 +166,10 @@
       </p>
       <p>
         Angelical is a universal script hub designed to work seamlessly across Roblox games.
-        Inspired by simplicity and wrapped in a pink aesthetic, because good tools should also be beautiful.
+        Inspired by Akadmin, Ketamine And Others.
       </p>
       <p>
-        All scripts are free, easy to work, and built with love. Use them, learn from them, grow with them.
+        All scripts are free, easy to work, and built with love.
       </p>
       <div class="stat-row">
         <div class="stat">
@@ -229,12 +199,12 @@
       <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="79%"></div></div>
     </div>
     <div class="skill-item reveal">
-      <div class="skill-header"><span class="skill-name">CSS</span><span class="skill-pct">45%</span></div>
-      <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="5%"></div></div>
+      <div class="skill-header"><span class="skill-name">C+</span><span class="skill-pct">25%</span></div>
+      <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="25%"></div></div>
     </div>
     <div class="skill-item reveal">
-      <div class="skill-header"><span class="skill-name">C+</span><span class="skill-pct">45%</span></div>
-      <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="15%"></div></div>
+      <div class="skill-header"><span class="skill-name">C++</span><span class="skill-pct">25%</span></div>
+      <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="25%"></div></div>
     </div>
     <div class="skill-item reveal">
       <div class="skill-header"><span class="skill-name">HTML</span><span class="skill-pct">44%</span></div>
@@ -249,7 +219,7 @@
   <h2 class="section-title reveal">Free <em>loadstrings</em></h2>
   <div class="scripts-grid">
 
-    <!-- Script 1 -->
+    <!-- Script 1 — Angelical Hub (WORKING) -->
     <div class="script-card reveal">
       <div class="script-card-header">
         <div class="script-badge">Universal</div>
@@ -270,14 +240,12 @@
         </button>
       </div>
       <pre><code><span class="tok-cmt">-- Angelical Hub | Universal Script</span>
-<span class="tok-cmt">-- Version 1.0.0 | Free to use</span>
+<span class="tok-cmt">Enjoy</span>
 
-<span class="tok-kw">loadstring</span><span class="tok-paren">(</span><span class="tok-fn">game</span><span class="tok-paren">:</span><span class="tok-fn">HttpGet</span><span class="tok-paren">(</span>
-    <span class="tok-str">"https://raw.githubusercontent.com/angelical-me/Angelical-me.github.io/main/scripts/hub.lua"</span>
-<span class="tok-paren">))()</span></code></pre>
+<span class="tok-kw">loadstring</span><span class="tok-paren">(</span><span class="tok-fn">game</span><span class="tok-paren">:</span><span class="tok-fn">HttpGet</span><span class="tok-paren">(</span><span class="tok-str">"https://raw.githubusercontent.com/angelical-me/Angelical-me.github.io/main/scripts/hub.lua"</span><span class="tok-paren">))()</span></code></pre>
     </div>
 
-    <!-- Script 2 -->
+    <!-- Script 2 — Angelical Utils (Coming Soon) -->
     <div class="script-card reveal">
       <div class="script-card-header">
         <div class="script-badge">Utility</div>
@@ -292,21 +260,18 @@
       </div>
       <div class="code-topbar">
         <div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
-        <span class="code-filename">angelical-utils.lua</span>
+        <span class="code-filename">Coming Soon!</span>
         <button class="copy-btn" onclick="copyCode(this)">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
           Copy
         </button>
       </div>
-      <pre><code><span class="tok-cmt">-- Angelical Utils | Lightweight Tools</span>
-<span class="tok-cmt">-- Works on most Roblox games</span>
+      <pre><code><span class="tok-cmt">-- Angelical Utils | Coming Soon</span>
 
-<span class="tok-kw">loadstring</span><span class="tok-paren">(</span><span class="tok-fn">game</span><span class="tok-paren">:</span><span class="tok-fn">HttpGet</span><span class="tok-paren">(</span>
-    <span class="tok-str">"https://raw.githubusercontent.com/angelical-me/Angelical-me.github.io/main/scripts/utils.lua"</span>
-<span class="tok-paren">))()</span></code></pre>
+<span class="tok-fn">print</span><span class="tok-paren">(</span><span class="tok-str">"Coming Soon!, Please Join Our Discord For More Information!."</span><span class="tok-paren">)</span></code></pre>
     </div>
 
-    <!-- Script 3 -->
+    <!-- Script 3 — Angelical X (Coming Soon) -->
     <div class="script-card reveal">
       <div class="script-card-header">
         <div class="script-badge">Exclusive</div>
@@ -326,12 +291,9 @@
           Copy
         </button>
       </div>
-      <pre><code><span class="tok-cmt">-- Angelical X | Exclusive Version</span>
-<span class="tok-cmt">Coming Soon!✦</span>
+      <pre><code><span class="tok-cmt">-- Angelical Admin | Coming Soon</span>
 
-<span class="tok-kw">loadstring</span><span class="tok-paren">(</span><span class="tok-fn">game</span><span class="tok-paren">:</span><span class="tok-fn">HttpGet</span><span class="tok-paren">(</span>
-    <span class="tok-str">"Coming Soon!"</span>
-<span class="tok-paren">))()</span></code></pre>
+<span class="tok-fn">print</span><span class="tok-paren">(</span><span class="tok-str">"Coming Soon!, Please Join Our Discord For More Information!."</span><span class="tok-paren">)</span></code></pre>
     </div>
 
   </div>
@@ -343,8 +305,8 @@
   <h2 class="section-title reveal">Find me <em>around</em></h2>
   <div class="contact-inner reveal">
     <p>
-      "Scripts are free, updates are coming —<br>
-      follow along for what blooms next."
+      "Scripts are free, updates are coming<br>
+      "
     </p>
     <div class="social-links">
       <a href="https://github.com/angelical-me" target="_blank" class="social-btn">
@@ -377,7 +339,7 @@
 
   // Cursor
   const cursor = document.getElementById('cursor');
-  const ring   = document.getElementById('cursorRing');
+  const ring = document.getElementById('cursorRing');
   let mx=0,my=0,rx=0,ry=0;
   document.addEventListener('mousemove', e => {
     mx=e.clientX; my=e.clientY;
@@ -420,7 +382,6 @@
   // Copy button
   function copyCode(btn) {
     const pre = btn.closest('.script-card').querySelector('pre');
-    // Get plain text without HTML tags
     const text = pre.innerText || pre.textContent;
     navigator.clipboard.writeText(text).then(() => {
       btn.classList.add('copied');
@@ -430,7 +391,6 @@
         btn.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy`;
       }, 3000);
     }).catch(() => {
-      // Fallback for older browsers
       const ta = document.createElement('textarea');
       ta.value = text;
       ta.style.position = 'fixed';
