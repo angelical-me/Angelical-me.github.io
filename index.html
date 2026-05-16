@@ -20,15 +20,9 @@
             padding: 20px;
         }
         @keyframes gradientShift {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         .container {
             max-width: 1200px;
@@ -62,17 +56,6 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
-            animation: fadeInUp 0.8s ease 0.2s both;
-        }
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
         .script-card {
             background: rgba(40, 20, 60, 0.8);
@@ -121,12 +104,12 @@
             color: #00ff00;
             padding: 12px;
             border-radius: 6px;
-            font-size: 0.8em;
+            font-size: 0.75em;
             margin-bottom: 15px;
             word-break: break-all;
             border: 1px solid #333;
             font-family: 'Courier New', monospace;
-            max-height: 80px;
+            max-height: 100px;
             overflow-y: auto;
         }
         .script-actions {
@@ -136,19 +119,17 @@
         }
         button {
             flex: 1;
-            min-width: 120px;
+            min-width: 100px;
             background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
             color: #fff;
             border: none;
-            padding: 12px 20px;
+            padding: 10px 15px;
             border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
             font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
             transition: all 0.3s ease;
-            font-size: 0.9em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 0.85em;
         }
         button:hover {
             transform: scale(1.05);
@@ -175,15 +156,6 @@
             text-align: center;
             padding: 40px;
             font-size: 1.1em;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.5;
-            }
         }
         .copy-notification {
             position: fixed;
@@ -193,19 +165,8 @@
             color: white;
             padding: 15px 25px;
             border-radius: 8px;
-            animation: slideInRight 0.5s ease;
             z-index: 1000;
             font-weight: bold;
-        }
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
         }
     </style>
 </head>
@@ -214,127 +175,65 @@
         <header>
             <h1>Please Copy Our Scripts Below!</h1>
         </header>
-
         <div class="scripts-grid" id="scriptsList">
             <div class="loading">Loading scripts...</div>
         </div>
     </div>
 
     <script>
-        const GITHUB_USER = 'angelical-me';
-        const GITHUB_REPO = 'Angelical-me.github.io';
-        const SCRIPTS_PATH = 'scripts';
-
         async function loadScripts() {
             try {
-                const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${SCRIPTS_PATH}`;
-                const response = await fetch(url);
-                
-                const scriptsList = document.getElementById('scriptsList');
+                const response = await fetch('https://api.github.com/repos/angelical-me/Angelical-me.github.io/contents/scripts');
                 
                 if (!response.ok) {
-                    if (response.status === 404) {
-                        scriptsList.innerHTML = '<div class="empty-message">No scripts available yet!</div>';
-                    } else {
-                        scriptsList.innerHTML = '<div class="empty-message">Error loading scripts</div>';
-                    }
+                    document.getElementById('scriptsList').innerHTML = '<div class="empty-message">No scripts available yet!</div>';
                     return;
                 }
                 
                 const files = await response.json();
-                const luaFiles = Array.isArray(files) ? files.filter(f => f.name.endsWith('.lua') && f.type === 'file') : [];
+                const luaFiles = files.filter(f => f.name.endsWith('.lua'));
                 
                 if (luaFiles.length === 0) {
-                    scriptsList.innerHTML = '<div class="empty-message">No scripts available yet!</div>';
+                    document.getElementById('scriptsList').innerHTML = '<div class="empty-message">No scripts available yet!</div>';
                     return;
                 }
                 
-                scriptsList.innerHTML = luaFiles.map((file, index) => {
+                const html = luaFiles.map((file, index) => {
                     const scriptName = file.name;
-                    const baseUrl = 'https://angelical-me.github.io';
-                    const scriptUrl = `${baseUrl}/${SCRIPTS_PATH}/${scriptName}`;
+                    const scriptUrl = `https://angelical-me.github.io/scripts/${scriptName}`;
                     const loadstringCode = `loadstring(game:HttpGet("${scriptUrl}"))()`;
-                    const rawUrl = file.download_url;
                     
                     return `
                         <div class="script-card" style="animation-delay: ${index * 0.1}s">
                             <div class="script-name">${scriptName}</div>
                             <div class="script-url">${scriptUrl}</div>
-                            <div class="loadstring-code">${escapeHtml(loadstringCode)}</div>
+                            <div class="loadstring-code">${loadstringCode}</div>
                             <div class="script-actions">
-                                <button class="loadstring-btn" onclick="copyLoadstring('${escapeJs(loadstringCode)}')">Copy Loadstring</button>
-                                <button onclick="copyUrl('${escapeJs(scriptUrl)}')">Copy URL</button>
-                                <button onclick="window.open('${rawUrl}', '_blank')">View Raw</button>
+                                <button class="loadstring-btn" onclick="copy('${loadstringCode.replace(/"/g, '&quot;')}')">Copy Loadstring</button>
+                                <button onclick="copy('${scriptUrl}')">Copy URL</button>
                             </div>
                         </div>
                     `;
                 }).join('');
+                
+                document.getElementById('scriptsList').innerHTML = html;
             } catch (error) {
-                console.error('Error loading scripts:', error);
+                console.error('Error:', error);
                 document.getElementById('scriptsList').innerHTML = '<div class="empty-message">Error loading scripts</div>';
             }
         }
-
-        function escapeHtml(text) {
-            const map = {
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                '"': '&quot;',
-                "'": '&#039;'
-            };
-            return text.replace(/[&<>"']/g, m => map[m]);
-        }
-
-        function escapeJs(text) {
-            return text.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\n/g, '\\n').replace(/\r/g, '\\r');
-        }
-
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.className = 'copy-notification';
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'slideOutRight 0.5s ease';
-                setTimeout(() => notification.remove(), 500);
-            }, 2000);
-        }
-
-        function copyLoadstring(text) {
+        
+        function copy(text) {
+            text = text.replace(/&quot;/g, '"');
             navigator.clipboard.writeText(text).then(() => {
-                showNotification('Loadstring copied!');
-            }).catch(() => {
-                showNotification('Failed to copy');
+                const notif = document.createElement('div');
+                notif.className = 'copy-notification';
+                notif.textContent = 'Copied!';
+                document.body.appendChild(notif);
+                setTimeout(() => notif.remove(), 2000);
             });
         }
-
-        function copyUrl(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                showNotification('URL copied!');
-            }).catch(() => {
-                showNotification('Failed to copy');
-            });
-        }
-
-        // Add slideOutRight animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideOutRight {
-                from {
-                    opacity: 1;
-                    transform: translateX(0);
-                }
-                to {
-                    opacity: 0;
-                    transform: translateX(100px);
-                }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Load scripts on page load
+        
         loadScripts();
     </script>
 </body>
