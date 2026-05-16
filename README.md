@@ -1,32 +1,35 @@
-# Angelical Me - GitHub Pages Site
+# Angelical Pastebin
 
-Welcome to my personal GitHub Pages website! 🎉
-
-## About
-This is my personal portfolio and project showcase hosted on GitHub Pages.
+A simple, elegant pastebin website built with GitHub Pages.
 
 ## Features
-- Responsive design
-- Custom styling
-- Easy to customize
 
-## How to Customize
+- 📝 Create and share text pastes
+- 💾 Local storage (persists in your browser)
+- 🎨 Dark theme with VS Code-inspired styling
+- ⚡ Fast and lightweight
+- 📱 Responsive design
 
-1. **Edit the home page**: Modify `index.html` to change the main page content and styling
-2. **Update the configuration**: Edit `_config.yml` to change site title, description, and other settings
-3. **Add new pages**: Create new `.html` or `.md` files in the root directory
-4. **Push changes**: Commit and push your changes to the repository, and GitHub Pages will automatically rebuild
+## Usage
 
-## Viewing Your Site
-Your site should be live at: https://angelical-me.github.io
+1. Go to https://angelical-me.github.io
+2. Enter a title (optional) and paste your content
+3. Click "Create Paste"
+4. Your pastes will be stored locally in your browser
 
-If it's not showing up yet, allow 5-10 minutes for GitHub Pages to process the changes.
+## Customization
 
-## Resources
-- [GitHub Pages Documentation](https://pages.github.com)
-- [Jekyll Documentation](https://jekyllrb.com)
-- [Markdown Guide](https://guides.github.com/features/mastering-markdown/)
+- Edit `index.html` to modify colors, styling, or functionality
+- Change the color scheme by modifying the `--color-primary` in the CSS
+
+## Limitations
+
+- Pastes are stored locally in your browser (using localStorage)
+- They are not shared across devices or browsers
+- Clearing browser data will delete pastes
+
+To add server-side storage, you would need to add a backend service.
 
 ---
 
-Happy building! 🚀
+Enjoy sharing your code! 🚀
