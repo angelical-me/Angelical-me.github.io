@@ -212,7 +212,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>💝 Please Copy Our Scripts Below!</h1>
+            <h1>Please Copy Our Scripts Below!</h1>
         </header>
 
         <div class="scripts-grid" id="scriptsList">
@@ -258,13 +258,13 @@
                     
                     return `
                         <div class="script-card" style="animation-delay: ${index * 0.1}s">
-                            <div class="script-name">📄 ${scriptName}</div>
+                            <div class="script-name">${scriptName}</div>
                             <div class="script-url">${scriptUrl}</div>
                             <div class="loadstring-code">${escapeHtml(loadstringCode)}</div>
                             <div class="script-actions">
-                                <button class="loadstring-btn" onclick="copyLoadstring('${escapeJs(loadstringCode)}')">📋 Copy Loadstring</button>
-                                <button onclick="copyUrl('${escapeJs(scriptUrl)}')">🔗 Copy URL</button>
-                                <button onclick="window.open('${rawUrl}', '_blank')">👁️ View Raw</button>
+                                <button class="loadstring-btn" onclick="copyLoadstring('${escapeJs(loadstringCode)}')">Copy Loadstring</button>
+                                <button onclick="copyUrl('${escapeJs(scriptUrl)}')">Copy URL</button>
+                                <button onclick="window.open('${rawUrl}', '_blank')">View Raw</button>
                             </div>
                         </div>
                     `;
@@ -304,7 +304,7 @@
 
         function copyLoadstring(text) {
             navigator.clipboard.writeText(text).then(() => {
-                showNotification('✓ Loadstring copied!');
+                showNotification('Loadstring copied!');
             }).catch(() => {
                 showNotification('Failed to copy');
             });
@@ -312,7 +312,7 @@
 
         function copyUrl(text) {
             navigator.clipboard.writeText(text).then(() => {
-                showNotification('✓ URL copied!');
+                showNotification('URL copied!');
             }).catch(() => {
                 showNotification('Failed to copy');
             });
